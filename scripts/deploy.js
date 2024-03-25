@@ -5,19 +5,22 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
-const {getConfigPath} = require('./private/_helpers.js');
-const { getDispatcherAddress, getUcHandlerAddress } = require('./private/_vibc-helpers.js');
+const { getConfigPath } = require("./private/_helpers.js");
+const {
+  getDispatcherAddress,
+  getUcHandlerAddress,
+} = require("./private/_vibc-helpers.js");
 
 async function main() {
   const config = require(getConfigPath());
-  const argsObject = require('../contracts/arguments.js');
+  const argsObject = require("../contracts/arguments.js");
   const networkName = hre.network.name;
 
   // The config should have a deploy object with the network name as the key and contract type as the value
   const contractType = config["deploy"][`${networkName}`];
   const args = argsObject[`${contractType}`];
   if (!args) {
-     console.warn(`No arguments found for contract type: ${contractType}`);
+    console.warn(`No arguments found for contract type: ${contractType}`);
   }
 
   // TODO: update to switch statement when supporting more networks
@@ -29,10 +32,14 @@ async function main() {
     const dispatcherAddr = getDispatcherAddress(networkName);
     constructorArgs = [dispatcherAddr, ...(args ?? [])];
   }
-  
+  console.log(constructorArgs);
   // Deploy the contract
   // NOTE: when adding additional args to the constructor, add them to the array as well
-  const myContract = await hre.ethers.deployContract(contractType, constructorArgs);
+  const myContract = await hre.ethers.deployContract(contractType, [
+    "Polymer USD",
+    "USD.P",
+    10000,
+  ]);
 
   await myContract.waitForDeployment();
 
