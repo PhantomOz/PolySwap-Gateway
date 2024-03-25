@@ -1,8 +1,8 @@
 {
   "proofsEnabled": false,
   "deploy": {
-    "optimism": "ERC20Token",
-    "base": "ERC20Token"
+    "optimism": "Gateway",
+    "base": "Gateway"
   },
   "isUniversal": true,
   "createChannel": {
@@ -28,12 +28,12 @@
   },
   "sendUniversalPacket": {
     "optimism": {
-      "portAddr": "0xf8aAeFefCf789e1df5c48760c64D52ECd25265cf",
+      "portAddr": "0x0FaaE9414aEf0e1312F69b58b42817c99f0abd61",
       "channelId": "channel-10",
       "timeout": 36000
     },
     "base": {
-      "portAddr": "0x5F0Eb0b2913Af7878A09f955249804630F3e28c2",
+      "portAddr": "0xBfA15a79b5FaFEa6025e0dc0547bc70536cf1b33",
       "channelId": "channel-11",
       "timeout": 36000
     }

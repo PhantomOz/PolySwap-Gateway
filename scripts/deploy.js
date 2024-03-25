@@ -18,7 +18,7 @@ async function main() {
 
   // The config should have a deploy object with the network name as the key and contract type as the value
   const contractType = config["deploy"][`${networkName}`];
-  const args = argsObject[`${contractType}`];
+  const args = argsObject[`${contractType}`][`${networkName}`];
   if (!args) {
     console.warn(`No arguments found for contract type: ${contractType}`);
   }
@@ -35,11 +35,10 @@ async function main() {
   console.log(constructorArgs);
   // Deploy the contract
   // NOTE: when adding additional args to the constructor, add them to the array as well
-  const myContract = await hre.ethers.deployContract(contractType, [
-    "Polymer USD",
-    "USD.P",
-    10000,
-  ]);
+  const myContract = await hre.ethers.deployContract(
+    contractType,
+    constructorArgs
+  );
 
   await myContract.waitForDeployment();
 
